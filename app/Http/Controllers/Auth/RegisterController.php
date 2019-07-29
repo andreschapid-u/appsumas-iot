@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\UserRegisterFormRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use App\Role;
 
 class RegisterController extends Controller
 {
@@ -51,12 +52,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $newUser = new User();
+        $newUser->first_name = $data['first_name'];
+        $newUser->last_name = $data['last_name'];
+        $newUser->email = $data['email'];
+        $newUser->password =  Hash::make($data['password']);
+
+        $role = Role::where("name", 'Tutor')->first();
+        $newUser = $role->users()->save($newUser);
+        return $newUser;
+        //  User::create([
+        //     'first_name' => $data['first_name'],
+        //     'last_name' => $data['last_name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'role_id' =>
+        // ]);
     }
 
 

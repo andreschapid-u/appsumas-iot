@@ -17,6 +17,8 @@ class CreateChallengesTable extends Migration
             $table->bigIncrements('id');
             $table->boolean("estate");
             $table->enum("difficulty", [1,2,3]);
+            $table->smallInteger("num_sums")->default(0);
+            $table->smallInteger("num_subtraction")->default(0);
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
         });
