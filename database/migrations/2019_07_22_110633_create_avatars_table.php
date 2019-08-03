@@ -15,12 +15,12 @@ class CreateAvatarsTable extends Migration
     {
         Schema::create('avatars', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('level_id');
             $table->string("name");
             $table->string("route");
             $table->text("characteristics")->nullable();
             $table->timestamps();
 
-            $table->unsignedBigInteger('level_id');
         });
         Schema::table('avatars', function($table) {
             $table->foreign('level_id')->references('id')->on('levels');
