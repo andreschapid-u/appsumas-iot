@@ -37,8 +37,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
+    public function devices()
     {
-        return $this->hasOne(Role::class, 'role_id', 'id');
+        return $this->hasMany(Device::class, 'user_id', 'id');
+    }
+    public function role(){
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+    public function children()
+    {
+        return $this->hasMany(Child::class, 'user_id', 'id');
+    }
+    public function challenges()
+    {
+        return $this->hasMany(Challenge::class, 'user_id', 'id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->person->role->is('Administrador');
+    }
+    public function isTutor()
+    {
+        return $this->person->role->is('Tutor');
+    }
+    public function isJugador()
+    {
+        return $this->person->role->is('Jugador');
     }
 }

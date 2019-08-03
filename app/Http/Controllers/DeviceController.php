@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Device;
 use Illuminate\Http\Request;
+use App\Http\Requests\DeviceRegisterFormRequest;
+use Illuminate\Support\Facades\DB;
 
 class DeviceController extends Controller
 {
@@ -14,7 +16,10 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        //
+        // $devices = auth()->user()->devices()->where("name", "Carlso")->get();
+        $devices = auth()->user()->devices;
+        // dd(auth()->user()->devices);
+        return view("dispositivo.index")->with("devices",$devices);
     }
 
     /**
@@ -24,7 +29,8 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        //
+        return view("dispositivo.create");
+
     }
 
     /**
@@ -33,9 +39,23 @@ class DeviceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeviceRegisterFormRequest $request)
     {
         //
+
+        try {
+            DB::beginTransaction();
+            //code...
+            $disp = new Device($request->all());
+            auth()->user()->devices()->save($disp);
+            DB::commit();
+        } catch (Exception $th) {
+            //throw $th;
+            DB::rollback();
+        }
+
+        return redirect()->route("dispositivo.index");
+
     }
 
     /**
@@ -46,7 +66,8 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        //
+        return view("dispositivo.show");
+
     }
 
     /**
@@ -58,6 +79,7 @@ class DeviceController extends Controller
     public function edit(Device $device)
     {
         //
+        return view("dispositivo.editnav");
     }
 
     /**

@@ -6,6 +6,7 @@
     "Forgot Your Password?": "¿Olvidaste tu contraseña?",
     "Register": "Registro",
     "First Name": "Nombres",
+    "Name": "Nombre",
     "Last Name": "Apellidos",
     "Confirm Password": "Confirmar contraseña",
     "Reset Password": "Restablecer contraseña",
@@ -26,5 +27,7 @@
     "A fresh verification link has been sent to your email address.": "Se ha enviado un nuevo enlace de verificación a tu correo electrónico.",
     "Before proceeding, please check your email for a verification link.": "Antes de poder continuar, por favor, confirma tu correo electrónico con el enlace que te hemos enviado.",
     "If you did not receive the email": "Si no has recibido el email",
-    "click here to request another": "pulsa aquí para que te enviemos otro"
+    "click here to request another": "pulsa aquí para que te enviemos otro",
+    "Code": "Código",
+    "Dashboard": "Inicio"
 }

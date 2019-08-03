@@ -13,7 +13,7 @@ class DeviceRegisterFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,40 @@ class DeviceRegisterFormRequest extends FormRequest
      */
     public function rules()
     {
+        $dispositivos = auth()->user()->devices()->count();
+        if ($dispositivos) {
+        // if (1) {
+            return ["maximo" => "required"];
+        } else {
+            return [
+                "name" => "required",
+                "mac" => "required|alpha_num|unique:devices,mac|size:17",
+                "user_id" => "unique:devices,user_id,"
+            ];
+        }
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
         return [
-            //
+            'mac' => __("Code"),
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'maximo.required' => 'Ha superado el máximo numero de dispositivos!',
         ];
     }
 }

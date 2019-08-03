@@ -33,6 +33,6 @@ class ChallengeChild extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('challenges_children');
+        // Schema::dropIfExists('challenges_children');
     }
 }

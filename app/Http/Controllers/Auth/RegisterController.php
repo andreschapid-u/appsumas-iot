@@ -59,8 +59,7 @@ class RegisterController extends Controller
         $newUser->password =  Hash::make($data['password']);
 
         $role = Role::where("name", 'Tutor')->first();
-        $newUser = $role->users()->save($newUser);
-        return $newUser;
+        return $role->users()->save($newUser);
         //  User::create([
         //     'first_name' => $data['first_name'],
         //     'last_name' => $data['last_name'],

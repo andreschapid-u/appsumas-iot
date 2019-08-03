@@ -24,12 +24,16 @@ Route::get('registrarse', 'Auth\RegisterController@showRegistrationForm')->name(
 Route::post('registrarse', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('recuperar/contrasenia', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('validar/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('recuperar/contrasenia/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('recuperar/contrasenia', 'Auth\ResetPasswordController@reset')->name('password.update');
 
 // Email Verification Routes...
 Route::emailVerification();
 
 Route::get('/inicio', 'HomeController@index')->name('home');
+
+Route::resource('jugadores', 'ChildController');
+Route::resource('dispositivo', 'DeviceController');
+Route::resource('retos', 'ChallengeController');

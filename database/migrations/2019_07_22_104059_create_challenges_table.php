@@ -17,13 +17,13 @@ class CreateChallengesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger("user_id");
             $table->boolean("estate")->default(false);
-            $table->enum("difficulty", [1,2,3])->default(1);
+            $table->enum("difficulty", [1, 2, 3])->default(1);
             $table->smallInteger("num_sums")->default(0);
             $table->smallInteger("num_subtraction")->default(0);
             $table->timestamps();
         });
 
-        Schema::table('challenges', function($table) {
+        Schema::table('challenges', function ($table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

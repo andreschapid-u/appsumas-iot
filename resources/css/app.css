@@ -1,0 +1,17 @@
+html, body{
+    height: 100vh !important;
+}
+
+body{
+    background-color: rgb(83, 83, 83);
+    background-image: url("/img/fondo.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card{
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+}
