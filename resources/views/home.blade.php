@@ -18,8 +18,7 @@
                         <div class="col-sm-6 offset-md-1 col-md-5">
                                 <a href="#" class="card-link text-white">
                                     <div class="card">
-
-                                        <img src="{{asset('/img/tarjetaRetosTr.jpg')}}" class="card-img" alt="...">
+                                        <img src="{{asset('/img/tarjetaRetosTr.png')}}" class="card-img" alt="...">
                                         <div class="card-body">
                                             <h3 class="text-uppercase">RETOS</h3>
                                         </div>

@@ -151,6 +151,11 @@ span.cc{ color:#6d84b4 }
                     </div>
 
                 </form>
+                <ul>
+                    @foreach ( \App\Avatar::all() as $item)
+                       <li><a href="{{$item->route}}">{{$item->name}}</a></li>
+                    @endforeach
+                </ul>
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>

@@ -13,6 +13,11 @@ class Child extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function avatar()
+    {
+        return $this->belongsTo(Avatar::class, 'avatar_id', 'id');
+    }
+
     public function challenges()
     {
         return $this->belongsToMany(Child::class, 'challenges_children', 'child_id', 'challenge_id')->withTimestamps();

@@ -16,6 +16,7 @@ class CreateChildrenTable extends Migration
         Schema::create('children', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('avatar_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->date("birthday");
@@ -24,6 +25,7 @@ class CreateChildrenTable extends Migration
         });
         Schema::table('children', function($table) {
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('avatar_id')->references('id')->on('avatars');
         });
     }
 

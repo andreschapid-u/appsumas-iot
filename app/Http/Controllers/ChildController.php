@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Child;
 use Illuminate\Http\Request;
+use App\Http\Requests\ChildRegisterFormRequest;
+use App\Avatar;
+use App\Level;
+use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\DB;
 
 class ChildController extends Controller
 {
@@ -15,6 +20,8 @@ class ChildController extends Controller
     public function index()
     {
         //
+        return view("jugadores.index")
+            ->with("children", auth()->user()->children);
     }
 
     /**
@@ -25,6 +32,8 @@ class ChildController extends Controller
     public function create()
     {
         //
+        return view('jugadores.create')
+            ->with("avatars", Level::where("level", 1)->first()->avatars);
     }
 
     /**
@@ -33,9 +42,20 @@ class ChildController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ChildRegisterFormRequest $request)
     {
         //
+        try {
+            DB::beginTransaction();
+            $newChild = new Child($request->all());
+            $newChild->avatar_id = Avatar::find($request->avatar)->id;
+            auth()->user()->children()->save($newChild);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();;
+            //throw $th;
+        }
     }
 
     /**

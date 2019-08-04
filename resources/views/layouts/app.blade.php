@@ -49,6 +49,34 @@
                                 </li>
                             @endif
                         @else
+                        <li><a href="{{route('home')}}" class="nav-link">Inicio</a></li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdownDispositivos" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Dispositivos <span class="caret"></span>
+                                </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownDispositivos">
+                                    <a href="{{route('dispositivo.index')}}" class="dropdown-item">Dispositivos</a>
+                                    <a href="{{route('dispositivo.create')}}" class="dropdown-item">Registrar</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdownNinos" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Niños Por hacer <span class="caret"></span>
+                                </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownNinos">
+                                    <a href="{{route('jugadores.index')}}" class="dropdown-item">Listar</a>
+                                    <a href="{{route('jugadores.create')}}" class="dropdown-item">Registrar</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdownRetos" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Retos Por hacer <span class="caret"></span>
+                                </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownRetos">
+                                    <a href="{{route('dispositivo.index')}}" class="dropdown-item">Listar</a>
+                                    <a href="{{route('dispositivo.create')}}" class="dropdown-item">Registrar</a>
+                            </div>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->first_name }} <span class="caret"></span>
@@ -66,6 +94,7 @@
                                     </form>
                                 </div>
                             </li>
+
                         @endguest
                     </ul>
                 </div>

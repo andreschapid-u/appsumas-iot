@@ -13,7 +13,7 @@ class ChildRegisterFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,26 @@ class ChildRegisterFormRequest extends FormRequest
      */
     public function rules()
     {
+        // dd(date("Y-m-d"));
         return [
-            //
+            "first_name" => "required|string",
+            "last_name" => "required|string",
+            "birthday" => "required|date|date_format:Y-m-d|before::".date("Y-m-d"),
+            "gender" => "required|in:Male,Female",
+            "avatar" => "required|exists:avatars,id"
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'gender' => __("Gender"),
+            'birthday' => __("Birthday"),
         ];
     }
 }
