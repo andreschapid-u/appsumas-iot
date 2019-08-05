@@ -29,7 +29,8 @@ class ChildRegisterFormRequest extends FormRequest
             "last_name" => "required|string",
             "birthday" => "required|date|date_format:Y-m-d|before::".date("Y-m-d"),
             "gender" => "required|in:Male,Female",
-            "avatar" => "required|exists:avatars,id"
+            "avatar" => "required|exists:avatars,id",
+            "code" => "required|unique:children,code"
         ];
     }
 

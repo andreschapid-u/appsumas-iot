@@ -21,6 +21,7 @@ class CreateChildrenTable extends Migration
             $table->string('last_name');
             $table->date("birthday");
             $table->enum("gender",["Male", "Female"]);
+            $table->string('code')->unique();
             $table->timestamps();
         });
         Schema::table('children', function($table) {

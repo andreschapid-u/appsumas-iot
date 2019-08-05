@@ -21,7 +21,7 @@ class Challenge extends Model
 
     public function operations()
     {
-        return $this->hasMany(Operation::class, 'user_id', 'id');
+        return $this->hasMany(Operation::class, 'challenge_id', 'id');
     }
     public function children()
     {

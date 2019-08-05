@@ -13,7 +13,7 @@ class ChallengeRegisterFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class ChallengeRegisterFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "num_sums" => "required|numeric",
+            "num_subtraction" => "required|numeric",
+            "difficulty" => "required|numeric|in:1,2,3"
         ];
     }
 }

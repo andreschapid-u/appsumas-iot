@@ -52,6 +52,7 @@ class ChildController extends Controller
             auth()->user()->children()->save($newChild);
 
             DB::commit();
+            return redirect()->route("jugadores.index");
         } catch (Exception $e) {
             DB::rollback();;
             //throw $th;

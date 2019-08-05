@@ -34,5 +34,12 @@
     "Gender":"Género",
     "Female":"Femenino",
     "Male":"Masculino",
-    "Birthday":"Fecha de nacimiento"
+    "Birthday":"Fecha de nacimiento",
+    "Num Sum":"Número de Sumas",
+    "Num Subtraction":"Número de Restas",
+    "Term":"Termino",
+    "Result":"Resultado",
+    "Type":"Tipo",
+    "Subtraction": "Resta",
+    "Sum": "Suma"
 }

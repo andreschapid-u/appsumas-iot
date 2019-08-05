@@ -1,6 +1,7 @@
 <?php
 
 /*
+php artisan vendor:publish --tag=laravel-errors
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -12,6 +13,14 @@
 */
 
 Route::get('/', function () {
+    // $mac = "00-1b:4d:65:2d:0e";
+
+    // if (preg_match('/^([A-F0-9]{2}[:]){5}[A-F0-9]{2}$/i', $mac)) {
+    //     echo "La mac es correcta";
+    // } else {
+    //     echo "La mac es incorrecta";
+    // }
+    // dd();
     return view('welcome');
 });
 // Authentication Routes...
@@ -37,3 +46,4 @@ Route::get('/inicio', 'HomeController@index')->name('home');
 Route::resource('jugadores', 'ChildController');
 Route::resource('dispositivo', 'DeviceController');
 Route::resource('retos', 'ChallengeController');
+Route::resource('retos/operaciones', 'OperationController');

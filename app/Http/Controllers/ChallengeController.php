@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Challenge;
 use Illuminate\Http\Request;
+use App\Operation;
+use App\Http\Requests\ChallengeRegisterFormRequest;
+use Illuminate\Support\Facades\DB;
 
 class ChallengeController extends Controller
 {
@@ -12,9 +15,13 @@ class ChallengeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     private $numMax = 4;
     public function index()
     {
-        //
+
+        return view("retos.index")
+            ->with("challenges", auth()->user()->challenges);
     }
 
     /**
@@ -24,7 +31,7 @@ class ChallengeController extends Controller
      */
     public function create()
     {
-        //
+        return view("retos.create");
     }
 
     /**
@@ -33,9 +40,30 @@ class ChallengeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ChallengeRegisterFormRequest $request)
     {
-        //
+
+        try {
+            DB::beginTransaction();
+            $challenge = new Challenge($request->all());
+            $challenge = auth()->user()->children()->save($challenge);
+            // dd($challenge);
+            // dd($this->generarResta());
+            for ($i=0; $i < $challenge->num_sums; $i++) {
+                $challenge->operations()->save($this->generarSuma());
+            }
+            for ($i=0; $i < $challenge->num_subtraction; $i++) {
+                $challenge->operations()->save($this->generarResta());
+            }
+            foreach (auth()->user()->children as $child) {
+                $child->challenges()->save($challenge);
+            }
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollback();;
+            //throw $th;
+        }
+        return redirect()->route("retos.index");
     }
 
     /**
@@ -44,9 +72,10 @@ class ChallengeController extends Controller
      * @param  \App\Challenge  $challenge
      * @return \Illuminate\Http\Response
      */
-    public function show(Challenge $challenge)
+    public function show(Challenge $challenge, $id)
     {
-        //
+        return view("retos.show")
+        ->with("reto",Challenge::findOrfail($id));
     }
 
     /**
@@ -81,5 +110,30 @@ class ChallengeController extends Controller
     public function destroy(Challenge $challenge)
     {
         //
+    }
+
+    private function generarSuma()
+    {
+        $res = rand(rand(1, $this->numMax), $this->numMax);
+        $sumando1  = rand(0, $res);
+        $sumando2  = $res - $sumando1;
+        $op = new Operation();
+        $op->type = "Sum";
+        $op->value_one = $sumando2;
+        $op->value_two = $sumando1;
+        $op->value_three = $res;
+        return $op;
+    }
+    private function generarResta()
+    {
+        $res = rand(rand(1, $this->numMax), $this->numMax);
+        $sumando1  = rand(0, $res);
+        $sumando2  = $res - $sumando1;
+        $op = new Operation();
+        $op->type = "Subtraction";
+        $op->value_three = $sumando2;
+        $op->value_two = $sumando1;
+        $op->value_one = $res;
+        return $op;
     }
 }

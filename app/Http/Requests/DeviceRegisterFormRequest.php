@@ -30,7 +30,7 @@ class DeviceRegisterFormRequest extends FormRequest
         } else {
             return [
                 "name" => "required",
-                "mac" => "required|alpha_num|unique:devices,mac|size:17",
+                "mac" => "required|unique:devices,mac|size:17|regex:/^([A-F0-9]{2}[:]){5}[A-F0-9]{2}$/i",
                 "user_id" => "unique:devices,user_id,"
             ];
         }

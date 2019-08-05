@@ -44,9 +44,10 @@ class OperationController extends Controller
      * @param  \App\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-    public function show(Operation $operation)
+    public function show(Operation $operation, $id)
     {
-        //
+        return view("operaciones.index")
+        ->with("operation",Operation::findOrFail($id));
     }
 
     /**

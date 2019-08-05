@@ -16,7 +16,7 @@
 
                     <div class="row">
                         <div class="col-sm-6 offset-md-1 col-md-5">
-                                <a href="#" class="card-link text-white">
+                        <a href="{{route("retos.index")}}" class="card-link text-white">
                                     <div class="card">
                                         <img src="{{asset('/img/tarjetaRetosTr.png')}}" class="card-img" alt="...">
                                         <div class="card-body">
@@ -26,7 +26,7 @@
                         </a>
                         </div>
                         <div class="col-sm-6 offset-md-1 col-md-5 offset-md-1">
-                                <a href="#" class="card-link text-white">
+                                <a href="{{route("jugadores.index")}}" class="card-link text-white">
                                     <div class="card">
                                         <img src="{{asset('/img/tarjetaNiñosTr.png')}}" class="card-img img-fluid" alt="...">
 

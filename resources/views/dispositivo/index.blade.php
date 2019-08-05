@@ -7,7 +7,17 @@
             <div class="col-md-8">
                 <div class="card">
 
-                    <div class="card-header">MIS DISPOSITIVOS</div>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>MIS DISPOSITIVOS</h2>
+                            </div>
+                            <div class="col-sm-6">
+                                <a name="" id="" class="btn btn-primary float-right text-white" href="{{route("dispositivo.create")}}" role="button">{{__("Register")}}</a>
+                            </div>
+                        </div>
+
+                    </div>
 
                     <div class="card-body">
                             @forelse ($devices as $device)
@@ -27,17 +37,10 @@
                                             <label class="col-form-label font-weight-bold text-uppercase text-white" >{{ $device->mac}}</label>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="form-group row">
-                                            <div class="col-sm-12">
-                                            <a name="" id="" class="btn btn-block btn-primary" href="{{route("home")}}" role="button">{{__("Home")}}</a>
-                                            </div>
-                                        </div> --}}
                                     </form>
                                 </div>
                             @empty
                                 {{ "No hay items disponibles"}}
-                                <a name="" id="" class="btn btn-primary" href="{{route("dispositivo.create")}}" role="button">Registrar dispositivo</a>
                             @endforelse
 
                         </div>

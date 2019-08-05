@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Child extends Model
 {
     //
-    protected $fillable = ["first_name", "last_name", "birthday", "gender"];
+    protected $fillable = ["first_name", "last_name", "birthday", "gender", "code"];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');

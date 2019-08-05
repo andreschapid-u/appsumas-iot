@@ -61,7 +61,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdownNinos" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Niños Por hacer <span class="caret"></span>
+                                    Niños<span class="caret"></span>
                                 </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownNinos">
                                     <a href="{{route('jugadores.index')}}" class="dropdown-item">Listar</a>
@@ -70,11 +70,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdownRetos" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Retos Por hacer <span class="caret"></span>
+                                    Retos<span class="caret"></span>
                                 </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownRetos">
-                                    <a href="{{route('dispositivo.index')}}" class="dropdown-item">Listar</a>
-                                    <a href="{{route('dispositivo.create')}}" class="dropdown-item">Registrar</a>
+                                    <a href="{{route('retos.index')}}" class="dropdown-item">Listar</a>
+                                    <a href="{{route('retos.create')}}" class="dropdown-item">Registrar</a>
                             </div>
                         </li>
                             <li class="nav-item dropdown">
@@ -105,5 +105,7 @@
             @yield('content')
         </main>
     </div>
+    @include('firebase')
+    @yield('scripts')
 </body>
 </html>
