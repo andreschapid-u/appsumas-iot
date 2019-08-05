@@ -15,7 +15,7 @@
                         @endif
 
                         <div class="row">
-                            @foreach (session("player")->challenges as $challenge)
+                            @foreach (auth()->user()->children()->findOrFail(session("player"))->challenges as $challenge)
 
 
                             <div class="col-sm-4 offset-md-1 col-md-5">

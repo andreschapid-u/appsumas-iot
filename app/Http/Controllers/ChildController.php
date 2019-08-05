@@ -107,7 +107,7 @@ class ChildController extends Controller
     {
         $jugador = $request->id_jugador;
         $player = auth()->user()->children()->findOrFail($jugador);
-        session(['player' => $player]);
+        session(['player' => $player->id]);
         return view("jugadores.home");
     }
     /**
@@ -128,14 +128,15 @@ class ChildController extends Controller
 
     public function resolver(Request $request, $id_reto)
     {
-        $player = session("player");
+        $player = Child::findOrFail(session("player"));
+        // session(['player' => );
         $reto = Challenge::findOrFail($id_reto);
         foreach ($reto->operations as $ope) {
             if($player->operations()->find($ope->id) == null){
                 return view("jugadores.operacion")->with("operacion", $ope);
             }
         }
-        $player->challenges()->find($id_reto)->delete();
+        $mireto = $player->challenges()->detach($reto);
         return view("jugadores.retos");
     }
     public function guardarOperacion(Request $request)
@@ -143,8 +144,9 @@ class ChildController extends Controller
         $respuesta = $request->res;
         $operacion = Operation::findOrFail($request->operacion);
         $estado = $request->estado;
-        $player = session("player");
-
+        $player = Child::findOrFail(session("player"));
+        // $player = session("player");
+        // session(['player' => Child::findOrFail($player->id)]);
         $player->operations()->attach($operacion,[
             "answer"=>$respuesta,
             "state"=>$estado,

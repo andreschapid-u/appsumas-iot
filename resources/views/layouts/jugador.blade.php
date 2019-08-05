@@ -24,8 +24,8 @@
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark text-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand text-uppercase" href="{{ url('/') }}">
-                <img src="{{session("player")->avatar->route}}" class="img-fluid avatar rounded-circle" alt="">
-                    {{ session("player")->first_name }}
+                <img src="{{ auth()->user()->children()->findOrFail(session("player"))->avatar->route}}" class="img-fluid avatar rounded-circle" alt="">
+                    {{ auth()->user()->children()->findOrFail(session("player"))->first_name }}
                 </a>
 
             </div>
