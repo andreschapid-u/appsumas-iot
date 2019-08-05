@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Avatar extends Model
 {
     //
+    use SoftDeletes; //add this line
     protected $fillable = ["name", "route", "characteristics"];
 
     public function level(){

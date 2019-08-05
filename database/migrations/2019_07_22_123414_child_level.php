@@ -19,6 +19,7 @@ class ChildLevel extends Migration
             $table->unsignedBigInteger("level_id");
 
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::table('children_levels', function (Blueprint $table) {
             $table->foreign('child_id')->references('id')->on('children');

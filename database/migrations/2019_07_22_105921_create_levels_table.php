@@ -18,6 +18,7 @@ class CreateLevelsTable extends Migration
             $table->integer("level")->unique();
             $table->unsignedSmallInteger("experience");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Child extends Model
 {
+    use SoftDeletes; //add this line
+
     //
     protected $fillable = ["first_name", "last_name", "birthday", "gender", "code"];
 

@@ -12,6 +12,18 @@ body {
     background-attachment: fixed;
 }
 
+.logo{
+    width: 30px;
+    display: inline-block;
+}
+.caracter{
+    height: 80px;
+}
+.avatar{
+    width: 50px;
+    display: inline-block;
+}
+
 .card {
     background: rgba(0, 0, 0, 0.8);
     color: #fff;

@@ -108,6 +108,9 @@
 
 @section('scripts')
     <script>
+        var device = "{{auth()->user()->devices()->first()->mac}}"
+var tagActual = firebase.database().ref('gateway/'+device+'/recursos/dispositivo_IoT/tag_actual');
+tagActual.set("");
         tagActual.on('value', function(snapshot) {
             // alert(snapshot.val());
             document.getElementById("code").value = snapshot.val();

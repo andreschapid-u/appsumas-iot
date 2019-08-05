@@ -9,6 +9,8 @@ use App\Avatar;
 use App\Level;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
+use App\Challenge;
+use App\Operation;
 
 class ChildController extends Controller
 {
@@ -76,31 +78,81 @@ class ChildController extends Controller
      * @param  \App\Child  $child
      * @return \Illuminate\Http\Response
      */
-    public function edit(Child $child)
+    public function play()
     {
-        //
+        $players = auth()->user()->children;
+        return view("jugar")
+        ->with("players", $players);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Child  $child
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Child $child)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * Show the form for editing the specified resource.
      *
      * @param  \App\Child  $child
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Child $child)
+    public function validar($jugador)
     {
-        //
+        $player = auth()->user()->children()->findOrFail($jugador);
+        return view("validar")
+        ->with("player", $player);
     }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Child  $child
+     * @return \Illuminate\Http\Response
+     */
+    public function irhome(Request $request)
+    {
+        $jugador = $request->id_jugador;
+        $player = auth()->user()->children()->findOrFail($jugador);
+        session(['player' => $player]);
+        return view("jugadores.home");
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Child  $child
+     * @return \Illuminate\Http\Response
+     */
+    public function home(Request $request)
+    {
+        return view("jugadores.home");
+    }
+
+    public function retos(Request $request)
+    {
+        return view("jugadores.retos");
+    }
+
+    public function resolver(Request $request, $id_reto)
+    {
+        $player = session("player");
+        $reto = Challenge::findOrFail($id_reto);
+        foreach ($reto->operations as $ope) {
+            if($player->operations()->find($ope->id) == null){
+                return view("jugadores.operacion")->with("operacion", $ope);
+            }
+        }
+        $player->challenges()->find($id_reto)->delete();
+        return view("jugadores.retos");
+    }
+    public function guardarOperacion(Request $request)
+    {
+        $respuesta = $request->res;
+        $operacion = Operation::findOrFail($request->operacion);
+        $estado = $request->estado;
+        $player = session("player");
+
+        $player->operations()->attach($operacion,[
+            "answer"=>$respuesta,
+            "state"=>$estado,
+            "operation_id"=>$operacion->id
+        ]);
+        return redirect()->route("jugador.retos.resolver",[$operacion->challenge->id]);
+    }
+
+
+
 }

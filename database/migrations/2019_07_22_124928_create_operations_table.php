@@ -21,6 +21,7 @@ class CreateOperationsTable extends Migration
             $table->smallInteger("value_two")->default(0);
             $table->smallInteger("value_three")->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::table('operations', function($table) {
             $table->foreign('challenge_id')->references('id')->on('challenges');

@@ -20,6 +20,7 @@ class CreateAvatarsTable extends Migration
             $table->string("route");
             $table->text("characteristics")->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
         });
         Schema::table('avatars', function($table) {

@@ -20,6 +20,7 @@ class ChildOperation extends Migration
             $table->smallInteger("answer");
             $table->boolean("state");
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::table('children_operations', function($table) {
             $table->foreign('child_id')->references('id')->on('children');

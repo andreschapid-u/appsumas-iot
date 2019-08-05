@@ -18,6 +18,7 @@ class ChallengeChild extends Migration
             $table->unsignedBigInteger("challenge_id");
             $table->unsignedBigInteger("child_id");
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::table('challenges_children', function (Blueprint $table) {
             $table->foreign('challenge_id')->references('id')->on('challenges');
