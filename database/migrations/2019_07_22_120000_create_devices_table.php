@@ -24,7 +24,6 @@ class CreateDevicesTable extends Migration
             $table->enum("feedback",[0,1,2])->default(0)->comment("Neutral=0, Correct=1, Incorrect=2");
             // $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
-            $table->softDeletes();
         });
         Schema::table('devices', function($table) {
             $table->foreign('user_id')->references('id')->on('users');

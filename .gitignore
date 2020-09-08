@@ -3,8 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
-/.history
-/.vscode
+.history
+.vscode
 .env
 .env.backup
 .phpunit.result.cache

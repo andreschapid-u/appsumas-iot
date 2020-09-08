@@ -14,8 +14,9 @@
                             </div>
                         @endif
 
+                        {{-- {{dd($children)}} --}}
                         <div class="row">
-                            @foreach (auth()->user()->children()->findOrFail(session("player"))->challenges as $challenge)
+                            @foreach ($children->challenges as $challenge)
 
 
                             <div class="col-sm-4 offset-md-1 col-md-5">

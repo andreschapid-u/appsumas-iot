@@ -3,12 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Child extends Model
 {
-    use SoftDeletes; //add this line
 
     //
     protected $fillable = ["first_name", "last_name", "birthday", "gender", "code"];
@@ -24,7 +22,7 @@ class Child extends Model
 
     public function challenges()
     {
-        return $this->belongsToMany(Child::class, 'challenges_children', 'child_id', 'challenge_id')->withTimestamps();
+        return $this->belongsToMany(Challenge::class, 'challenges_children', 'child_id', 'challenge_id')->withTimestamps();
         // ->using(BranchProduct::class);
     }
     public function levels()

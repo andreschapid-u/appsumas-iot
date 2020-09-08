@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChildLevel extends Migration
+class CreateAvatarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class ChildLevel extends Migration
      */
     public function up()
     {
-        Schema::create('children_levels', function (Blueprint $table) {
+        Schema::create('avatars', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger("child_id");
-            $table->unsignedBigInteger("level_id");
-
+            $table->unsignedBigInteger('level_id');
+            $table->string("name");
+            $table->string("route");
+            $table->text("characteristics")->nullable();
             $table->timestamps();
-            $table->softDeletes();
+
         });
-        Schema::table('children_levels', function (Blueprint $table) {
-            $table->foreign('child_id')->references('id')->on('children');
+        Schema::table('avatars', function($table) {
             $table->foreign('level_id')->references('id')->on('levels');
-            $table->unique(["child_id", "level_id"]);
         });
     }
 
@@ -35,6 +34,6 @@ class ChildLevel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('children_levels');
+        Schema::dropIfExists('avatars');
     }
 }

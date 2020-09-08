@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChallengeChild extends Migration
+class ChildLevel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class ChallengeChild extends Migration
      */
     public function up()
     {
-        Schema::create('challenges_children', function (Blueprint $table) {
+        Schema::create('children_levels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger("challenge_id");
             $table->unsignedBigInteger("child_id");
-            $table->timestamps();
-            $table->softDeletes();
-        });
-        Schema::table('challenges_children', function (Blueprint $table) {
-            $table->foreign('challenge_id')->references('id')->on('challenges');
-            $table->foreign('child_id')->references('id')->on('children');
+            $table->unsignedBigInteger("level_id");
 
+            $table->timestamps();
+        });
+        Schema::table('children_levels', function (Blueprint $table) {
+            $table->foreign('child_id')->references('id')->on('children');
+            $table->foreign('level_id')->references('id')->on('levels');
+            $table->unique(["child_id", "level_id"]);
         });
     }
 
@@ -34,6 +34,6 @@ class ChallengeChild extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('challenges_children');
+        Schema::dropIfExists('children_levels');
     }
 }

@@ -107,7 +107,7 @@ class ChildController extends Controller
     {
         $jugador = $request->id_jugador;
         $player = auth()->user()->children()->findOrFail($jugador);
-        session(['player' => $player->id]);
+        session(['player' => $jugador]);
         return view("jugadores.home");
     }
     /**
@@ -123,7 +123,12 @@ class ChildController extends Controller
 
     public function retos(Request $request)
     {
-        return view("jugadores.retos");
+        if(session("player")){
+            $children = Child::findOrFail(session("player"));
+            // dd($children->challenges);
+            return view("jugadores.retos")->with("children", $children);
+        }
+        return redirect()->route("jugador.retos");
     }
 
     public function resolver(Request $request, $id_reto)
@@ -137,7 +142,7 @@ class ChildController extends Controller
             }
         }
         $mireto = $player->challenges()->detach($reto);
-        return view("jugadores.retos");
+        return view("jugadores.retos")->with("children", $player);
     }
     public function guardarOperacion(Request $request)
     {

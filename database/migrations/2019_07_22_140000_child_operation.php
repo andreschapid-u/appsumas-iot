@@ -17,10 +17,9 @@ class ChildOperation extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('child_id');
             $table->unsignedBigInteger('operation_id');
-            $table->smallInteger("answer");
+            $table->smallInteger("answer")->default(0);
             $table->boolean("state");
             $table->timestamps();
-            $table->softDeletes();
         });
         Schema::table('children_operations', function($table) {
             $table->foreign('child_id')->references('id')->on('children');

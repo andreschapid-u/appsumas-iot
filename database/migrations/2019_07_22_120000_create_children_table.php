@@ -23,7 +23,6 @@ class CreateChildrenTable extends Migration
             $table->enum("gender",["Male", "Female"]);
             $table->string('code')->unique();
             $table->timestamps();
-            $table->softDeletes();
         });
         Schema::table('children', function($table) {
             $table->foreign('user_id')->references('id')->on('users');

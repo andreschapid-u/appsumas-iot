@@ -50,7 +50,7 @@
                 </div>
                 <form id="formres" action="{{route("jugador.retos.guardar")}}" method="post">
                 @csrf
-                <input type="hidden" name="res" id="answer">
+                <input type="hidden" name="res" value="-1" id="answer">
                 <input type="hidden" name="operacion" value="{{$operacion->id}}">
                 <input type="hidden" name="estado" id="estado">
                 </form>
@@ -63,7 +63,9 @@
 
 var device = "{{auth()->user()->devices()->first()->mac}}"
 var tagActual = firebase.database().ref('gateway/'+device+'/recursos/dispositivo_IoT/tag_actual');
+var retroalimentacion = firebase.database().ref('gateway/'+device+'/retro_alimentacion');
 tagActual.set("");
+retroalimentacion.set("0");
 var timer;
 var counter = 15;
 
@@ -83,6 +85,7 @@ function countDown( )
     {
          window.clearTimeout( timer );
          timer = null;
+         responder(-1)
     }
     else
     {
@@ -90,7 +93,7 @@ function countDown( )
     }
 }
 window.onload = startCounting()
-var imgError = "{{asset('/img/numeros/error.png')}}"
+var imgRoute = "{{asset('/img/numeros/')}}"
 
 
 
@@ -101,23 +104,32 @@ tagActual.on('value', function(snapshot) {
         var tagNumero = firebase.database().ref('tag/'+tag_leido)
         tagNumero.on("value", function(numero){
             console.log(numero.val());
-
-            if(numero.val() != ""){
-                if(numero.val() == document.getElementById("res").value){
-                    window.clearTimeout( timer );
-                    timer = null
-                    document.getElementById("estado").value = 1;
-                }else{
-                    document.getElementById("int").src = imgError
-                    document.getElementById("estado").value = 0;
-                }
-                document.getElementById("answer").value = numero.val();
-                setTimeout(function(){
-                        document.getElementById("formres").submit();
-                    }, 3000)
-            }
+            responder(numero.val())
         })
     }
 });
+
+function responder(numero){
+    if(numero != null && numero != ""){
+        if(numero == document.getElementById("res").value){
+            window.clearTimeout( timer );
+            timer = null
+            document.getElementById("estado").value = 1;
+            document.getElementById("int").src = imgRoute+"/"+numero+".png"
+            retroalimentacion.set("1");
+
+        }else{
+            document.getElementById("int").src = imgRoute+"/error.png"
+            document.getElementById("estado").value = 0;
+            retroalimentacion.set("2");
+
+        }
+        document.getElementById("answer").value = numero;
+        setTimeout(function(){
+            retroalimentacion.set("0");
+                document.getElementById("formres").submit();
+            }, 3000)
+    }
+}
 </script>
 @endsection

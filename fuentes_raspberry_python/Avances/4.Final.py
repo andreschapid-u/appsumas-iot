@@ -52,7 +52,8 @@ try:
       port.close()
       tagid = tagid.strip()
       timestamp = time.ctime()
-      
+      Display.reinicio()
+
       print("Time: %s, Tag: %s" % (timestamp,tagid))
 
       
@@ -68,7 +69,9 @@ try:
         Display.imprimir( int(result) )
       else:
           print("El valor de la tarjeta NO esta registrado")
-          Led.encenderRojo() 
+          Led.encenderRojo()
+          Display.reinicio()
+
           
       time.sleep(0.5)
       Led.reinicio()

@@ -21,7 +21,6 @@ class CreateChallengesTable extends Migration
             $table->smallInteger("num_sums")->default(0);
             $table->smallInteger("num_subtraction")->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::table('challenges', function ($table) {
